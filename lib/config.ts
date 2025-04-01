@@ -56,7 +56,7 @@ const config: Config = {
     {
       id: "email",
       title: "Contact Me",
-      url: "mailto:sreeaadhi07@gmail.com",
+      url: "mailto:hi@eers.dev",
       keybind: "gcm",
     },
   ],
