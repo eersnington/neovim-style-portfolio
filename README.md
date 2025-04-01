@@ -4,6 +4,9 @@ A sleek, Neovim-inspired personal portfolio website featuring vim-like keybindin
 
 ![Portfolio Preview](app/opengraph-image.png)
 
+## Demo : [https://www.eers.dev](www.eers.dev)
+
+
 ## Features
 
 ### 🎨 Vim-Inspired Interface
