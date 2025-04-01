@@ -2,6 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { GeistMono } from "geist/font/mono";
+import { PostHogProvider } from "@/components/PostHogProvider";
 
 import "@/app/globals.css";
 import config from "@/lib/config";
@@ -25,14 +26,16 @@ export default function RootLayout({
         />
       </head>
       <body className={GeistMono.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        <PostHogProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </PostHogProvider>
       </body>
     </html>
   );
