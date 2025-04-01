@@ -78,7 +78,7 @@ export function AsciiTitle({ title, color }: AsciiTitleProps) {
         setShortAsciiArt(shortArt);
 
         // Small delay before removing loading state
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        await new Promise((resolve) => setTimeout(resolve, 400));
         setIsLoading(false);
 
         // Small delay before ending transition

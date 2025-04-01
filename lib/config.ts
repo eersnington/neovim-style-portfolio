@@ -25,7 +25,7 @@ export interface Config {
 
 const config: Config = {
   pageTitle: "Sree N | @eersnington",
-  title: "Sree N",
+  title: "Sree",
   subtitle: "TypeScript & Go SWE | Developing apps for 8yrs+",
 
   links: [
