@@ -56,11 +56,14 @@ export default function Home() {
     >
       <LineNumbers
         color={theme.lineNumbers}
-        count={LAYOUT.LINE_COUNT}
+        count={Math.floor((window.innerHeight - LAYOUT.STATUS_LINE_HEIGHT) / LAYOUT.LINE_HEIGHT)}
         currentLine={DEFAULTS.LINE}
       />
 
-      <main className="relative flex-1 p-4 pl-12">
+      <main
+        className="relative p-4 pl-12"
+        style={{ height: `calc(100vh - ${LAYOUT.STATUS_LINE_HEIGHT}px)` }}
+      >
         <div className="flex min-h-[80vh] flex-col items-center justify-center gap-6">
           <AsciiTitle color={theme.accent} title={config.title} />
 
@@ -85,10 +88,7 @@ export default function Home() {
           <VimStatusDisplay keyBuffer={keyBuffer} mode={DEFAULTS.MODE} />
         </div>
 
-        <BackgroundTildes
-          color={theme.lineNumbers}
-          lineCount={LAYOUT.LINE_COUNT}
-        />
+        <BackgroundTildes color={theme.lineNumbers} />
       </main>
 
       <StatusLine
