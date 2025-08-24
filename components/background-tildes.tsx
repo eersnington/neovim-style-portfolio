@@ -27,7 +27,7 @@ export const BackgroundTildes = memo(
 
     return (
       <div
-        className="pointer-events-none absolute top-0 left-0 h-full w-full overflow-hidden"
+        className="pointer-events-none absolute top-0 left-0 h-full w-full overflow-hidden font-bold text-lg"
         ref={containerRef}
       >
         {Array.from({ length: dynamicLineCount }, (_, i) => (

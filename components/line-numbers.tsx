@@ -7,7 +7,7 @@ type LineNumbersProps = {
 export function LineNumbers({ count, currentLine, color }: LineNumbersProps) {
   return (
     <div
-      className="absolute top-0 left-0 flex h-full w-8 select-none flex-col items-end pt-4 pr-1"
+      className="absolute top-0 left-0 flex hidden h-full w-8 select-none flex-col items-end pl-9 font-bold text-lg md:flex"
       style={{ color }}
     >
       {Array.from({ length: count }).map((_, i) => (
