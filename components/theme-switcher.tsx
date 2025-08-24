@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { Theme } from '@/lib/themes';
 
 type ThemeSwitcherProps = {
@@ -25,53 +25,68 @@ export function ThemeSwitcher({
 }: ThemeSwitcherProps) {
   const [focusedIndex, setFocusedIndex] = useState(currentThemeIndex);
 
+  const handleKeyNavigation = useCallback(
+    (key: string) => {
+      if (key === 'ArrowDown' || key === 'j') {
+        setFocusedIndex((prev) => Math.min(prev + 1, themes.length - 1));
+        return true;
+      }
+      if (key === 'ArrowUp' || key === 'k') {
+        setFocusedIndex((prev) => Math.max(prev - 1, 0));
+        return true;
+      }
+      return false;
+    },
+    [themes.length]
+  );
+
+  const handleKeyAction = useCallback(
+    (key: string) => {
+      if (key === 'Escape') {
+        onClose();
+        return true;
+      }
+      if (key === 'Enter') {
+        onSelectTheme(focusedIndex);
+        return true;
+      }
+      return false;
+    },
+    [onClose, onSelectTheme, focusedIndex]
+  );
+
+  const shouldPreventDefault = useCallback((key: string) => {
+    return ['ArrowDown', 'ArrowUp', 'j', 'k', 'Enter', 'Escape'].includes(key);
+  }, []);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       e.stopPropagation();
 
-      // Prevent default browser behavior
-      if (
-        ['ArrowDown', 'ArrowUp', 'j', 'k', 'Enter', 'Escape'].includes(e.key)
-      ) {
+      if (shouldPreventDefault(e.key)) {
         e.preventDefault();
       }
 
-      if (e.key === 'Escape') {
-        onClose();
+      if (handleKeyAction(e.key)) {
         return;
       }
-
-      if (e.key === 'ArrowDown' || e.key === 'j') {
-        setFocusedIndex((prev) => Math.min(prev + 1, themes.length - 1));
-        return;
-      }
-
-      if (e.key === 'ArrowUp' || e.key === 'k') {
-        setFocusedIndex((prev) => Math.max(prev - 1, 0));
-        return;
-      }
-
-      if (e.key === 'Enter') {
-        onSelectTheme(focusedIndex);
-        return;
-      }
+      handleKeyNavigation(e.key);
     };
 
-    // Use capture phase to ensure our handler runs before the main page handler
     window.addEventListener('keydown', handleKeyDown, { capture: true });
     return () =>
       window.removeEventListener('keydown', handleKeyDown, { capture: true });
-  }, [onClose, onSelectTheme, focusedIndex, themes.length]);
+  }, [shouldPreventDefault, handleKeyAction, handleKeyNavigation]);
 
   return (
     <div
+      aria-labelledby="theme-title"
+      aria-modal="true"
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-      onClick={onClose}
-      onKeyDown={(e) => e.stopPropagation()}
+      role="dialog"
     >
       <div
         className="w-full max-w-md rounded-md p-6 shadow-lg"
-        onClick={(e) => e.stopPropagation()}
         style={{
           backgroundColor: theme.background,
           color: theme.foreground,
@@ -80,6 +95,7 @@ export function ThemeSwitcher({
       >
         <h2
           className="mb-4 pb-2 font-bold text-xl"
+          id="theme-title"
           style={{ borderBottom: `1px solid ${theme.selection}` }}
         >
           Theme Selector
@@ -98,7 +114,7 @@ export function ThemeSwitcher({
                 borderLeft: `2px solid ${
                   index === currentThemeIndex ? theme.accent : 'transparent'
                 }`,
-                outline: 'none', // Remove default focus outline
+                outline: 'none',
               }}
               type="button"
             >

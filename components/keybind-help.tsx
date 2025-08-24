@@ -1,8 +1,8 @@
 'use client';
 
-import { Github, Linkedin, Mail, Twitter, Youtube } from 'lucide-react';
 import { useEffect } from 'react';
-import type { Link } from '@/lib/config';
+import type { Link } from '@/lib/types';
+import { getIconForLink } from '@/lib/utils/icon-utils';
 
 type KeybindHelpProps = {
   links: Link[];
@@ -42,32 +42,15 @@ export function KeybindHelp({
       window.removeEventListener('keydown', handleKeyDown, { capture: true });
   }, [onClose]);
 
-  const getIconForLink = (id: string) => {
-    switch (id) {
-      case 'github':
-        return <Github className="h-4 w-4" />;
-      case 'twitter':
-        return <Twitter className="h-4 w-4" />;
-      case 'linkedin':
-        return <Linkedin className="h-4 w-4" />;
-      case 'youtube':
-        return <Youtube className="h-4 w-4" />;
-      case 'email':
-        return <Mail className="h-4 w-4" />;
-      default:
-        return null;
-    }
-  };
-
   return (
     <div
+      aria-labelledby="help-title"
+      aria-modal="true"
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-      onClick={onClose}
-      onKeyDown={(e) => e.stopPropagation()}
+      role="dialog"
     >
       <div
         className="w-full max-w-md rounded-md p-6 shadow-lg"
-        onClick={(e) => e.stopPropagation()}
         style={{
           backgroundColor: theme.background,
           color: theme.foreground,
@@ -76,6 +59,7 @@ export function KeybindHelp({
       >
         <h2
           className="mb-4 pb-2 font-bold text-xl"
+          id="help-title"
           style={{ borderBottom: `1px solid ${theme.selection}` }}
         >
           Keyboard Shortcuts
@@ -88,7 +72,7 @@ export function KeybindHelp({
               {links.map((link) => (
                 <li className="flex items-center justify-between" key={link.id}>
                   <div className="flex items-center gap-2">
-                    {getIconForLink(link.id)}
+                    {getIconForLink({ id: link.id, className: 'h-4 w-4' })}
                     <span>{link.title}</span>
                   </div>
                   <kbd

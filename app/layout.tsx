@@ -1,15 +1,15 @@
-import type React from "react";
-import type { Metadata } from "next";
-import { ThemeProvider } from "@/components/theme-provider";
-import { GeistMono } from "geist/font/mono";
-import { PostHogProvider } from "@/components/posthog-provider";
+import { GeistMono } from 'geist/font/mono';
+import type { Metadata } from 'next';
+import type React from 'react';
+import { PostHogProvider } from '@/components/posthog-provider';
+import { ThemeProvider } from '@/components/theme-provider';
 
-import "@/app/globals.css";
-import config from "@/lib/config";
+import '@/app/globals.css';
+import config from '@/lib/config';
 
 export const metadata: Metadata = {
   title: `${config.pageTitle}`,
-  description: "A Neovim-inspired personal homepage with keybinds",
+  description: 'A Neovim-inspired personal homepage with keybinds',
 };
 
 export default function RootLayout({
@@ -21,8 +21,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link
-          rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+          rel="stylesheet"
         />
       </head>
       <body className={GeistMono.className}>
@@ -30,8 +30,8 @@ export default function RootLayout({
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
-            enableSystem
             disableTransitionOnChange
+            enableSystem
           >
             {children}
           </ThemeProvider>
