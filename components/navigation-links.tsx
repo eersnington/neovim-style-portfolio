@@ -5,13 +5,7 @@ import type { NavigationLinksProps } from '@/lib/types';
 import { getIconForLink } from '@/lib/utils/icon-utils';
 
 export const NavigationLinks = memo(
-  ({
-    links,
-    selectedIndex,
-    theme,
-    onSelectionChange,
-    onLinkActivate,
-  }: NavigationLinksProps) => (
+  ({ links, selectedIndex, theme, onLinkActivate }: NavigationLinksProps) => (
     <div className="grid w-full max-w-md gap-4">
       {links.map((link, index) => (
         <a
@@ -23,7 +17,6 @@ export const NavigationLinks = memo(
             e.preventDefault();
             onLinkActivate(link);
           }}
-          onMouseEnter={() => onSelectionChange(index)}
           rel="noopener noreferrer"
           style={{
             backgroundColor:

@@ -80,7 +80,6 @@ export type NavigationLinksProps = {
   readonly links: readonly Link[];
   readonly selectedIndex: number;
   readonly theme: Theme['colors'];
-  readonly onSelectionChange: (index: number) => void;
   readonly onLinkActivate: (link: Link) => void;
 };
 

@@ -1,7 +1,6 @@
 import { GeistMono } from 'geist/font/mono';
 import type { Metadata } from 'next';
 import type React from 'react';
-import { PostHogProvider } from '@/components/posthog-provider';
 import { ThemeProvider } from '@/components/theme-provider';
 
 import '@/app/globals.css';
@@ -10,6 +9,7 @@ import config from '@/lib/config';
 export const metadata: Metadata = {
   title: `${config.pageTitle}`,
   description: 'A Neovim-inspired personal homepage with keybinds',
+  metadataBase: new URL('https://eers.dev'),
 };
 
 export default function RootLayout({
@@ -26,16 +26,14 @@ export default function RootLayout({
         />
       </head>
       <body className={GeistMono.className}>
-        <PostHogProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            disableTransitionOnChange
-            enableSystem
-          >
-            {children}
-          </ThemeProvider>
-        </PostHogProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          disableTransitionOnChange
+          enableSystem
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

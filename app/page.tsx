@@ -40,10 +40,6 @@ export default function Home() {
     isModalOpen: isAnyModalOpen,
   });
 
-  const handleSelectionChange = useCallback((_index: number) => {
-    // Selection is managed by keyboard navigation hook
-  }, []);
-
   const theme = currentTheme.colors;
 
   return (
@@ -56,7 +52,9 @@ export default function Home() {
     >
       <LineNumbers
         color={theme.lineNumbers}
-        count={Math.floor((window.innerHeight - LAYOUT.STATUS_LINE_HEIGHT) / LAYOUT.LINE_HEIGHT)}
+        count={Math.floor(
+          (window.innerHeight - LAYOUT.STATUS_LINE_HEIGHT) / LAYOUT.LINE_HEIGHT
+        )}
         currentLine={DEFAULTS.LINE}
       />
 
@@ -80,7 +78,6 @@ export default function Home() {
           <NavigationLinks
             links={config.links}
             onLinkActivate={handleLinkActivate}
-            onSelectionChange={handleSelectionChange}
             selectedIndex={selectedIndex}
             theme={theme}
           />
