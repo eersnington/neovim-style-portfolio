@@ -3,7 +3,7 @@ import type { Config } from './types';
 const config: Config = {
   pageTitle: 'Sree N | @eersnington',
   title: 'Sree',
-  subtitle: 'SWE @ StockPenguins | I like to build apps and games',
+  subtitle: 'SWE @ StockPenguins | I like breaking web and building games',
 
   links: [
     {

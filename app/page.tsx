@@ -74,7 +74,7 @@ export default function Home() {
               color: theme.foreground,
             }}
           >
-            {config.subtitle} <span className="animate-pulse">▲</span>
+            {config.subtitle} <span className="animate-pulse text-xl">▲</span>
           </div>
 
           <NavigationLinks
