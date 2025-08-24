@@ -60,6 +60,10 @@ export function ThemeSwitcher({
   }, []);
 
   useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     const handleKeyDown = (e: KeyboardEvent) => {
       e.stopPropagation();
 

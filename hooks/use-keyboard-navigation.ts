@@ -99,6 +99,10 @@ export const useKeyboardNavigation = ({
   );
 
   useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (isModalOpen || isInputTarget(event.target)) {
         return;

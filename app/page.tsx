@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { AsciiTitle } from '@/components/ascii-title';
 import { BackgroundTildes } from '@/components/background-tildes';
 import { KeybindHelp } from '@/components/keybind-help';
@@ -14,6 +14,9 @@ import { useModalState } from '@/hooks/use-modal-state';
 import { useThemeManager } from '@/hooks/use-theme-manager';
 import config from '@/lib/config';
 import { DEFAULTS, LAYOUT } from '@/lib/constants';
+
+const DEFAULT_WINDOW_HEIGHT = 800;
+
 import { themes } from '@/lib/themes';
 import type { Link } from '@/lib/types';
 
@@ -29,7 +32,9 @@ export default function Home() {
   } = useModalState();
 
   const handleLinkActivate = useCallback((link: Link) => {
-    window.open(link.url, '_blank');
+    if (typeof window !== 'undefined') {
+      window.open(link.url, '_blank');
+    }
   }, []);
 
   const { selectedIndex, keyBuffer } = useKeyboardNavigation({
@@ -39,6 +44,21 @@ export default function Home() {
     onToggleTheme: toggleThemeSwitcher,
     isModalOpen: isAnyModalOpen,
   });
+
+  const [windowHeight, setWindowHeight] = useState(DEFAULT_WINDOW_HEIGHT);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setWindowHeight(window.innerHeight);
+
+      const handleResize = () => {
+        setWindowHeight(window.innerHeight);
+      };
+
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
 
   const theme = currentTheme.colors;
 
@@ -53,7 +73,7 @@ export default function Home() {
       <LineNumbers
         color={theme.lineNumbers}
         count={Math.floor(
-          (window.innerHeight - LAYOUT.STATUS_LINE_HEIGHT) / LAYOUT.LINE_HEIGHT
+          (windowHeight - LAYOUT.STATUS_LINE_HEIGHT) / LAYOUT.LINE_HEIGHT
         )}
         currentLine={DEFAULTS.LINE}
       />

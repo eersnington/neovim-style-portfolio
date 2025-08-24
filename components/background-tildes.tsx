@@ -21,8 +21,11 @@ export const BackgroundTildes = memo(
       };
 
       calculateLineCount();
-      window.addEventListener('resize', calculateLineCount);
-      return () => window.removeEventListener('resize', calculateLineCount);
+      
+      if (typeof window !== 'undefined') {
+        window.addEventListener('resize', calculateLineCount);
+        return () => window.removeEventListener('resize', calculateLineCount);
+      }
     }, []);
 
     return (

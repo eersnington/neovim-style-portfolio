@@ -27,6 +27,10 @@ export function KeybindHelp({
   theme,
 }: KeybindHelpProps) {
   useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     const handleKeyDown = (e: KeyboardEvent) => {
       e.stopPropagation();
 
