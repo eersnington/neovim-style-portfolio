@@ -40,7 +40,9 @@ export function StatusLine({
         {mode}
       </div>
       <div className="px-3">{file}</div>
-      {helpText && <div className="ml-4 px-3 opacity-70">{helpText}</div>}
+      {helpText && (
+        <div className="ml-4 hidden px-3 opacity-70 md:flex">{helpText}</div>
+      )}
       <div className="ml-auto flex items-center gap-4 px-3">
         {currentTheme && <span>Theme: {currentTheme}</span>}
         <span>{filetype}</span>

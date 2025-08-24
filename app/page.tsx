@@ -83,7 +83,7 @@ export default function Home() {
         style={{ height: `calc(100vh - ${LAYOUT.STATUS_LINE_HEIGHT}px)` }}
       >
         <div className="flex min-h-[80vh] flex-col items-center justify-center gap-6">
-          <AsciiTitle color={theme.accent} title={config.title} />
+          <AsciiTitle color={theme.accent} />
 
           <div
             className="mb-8 px-4 py-2 text-center text-lg"
