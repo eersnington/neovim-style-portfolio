@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import type { Link } from "@/lib/config";
-import { Github, Twitter, Linkedin, Youtube, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, Twitter, Youtube } from 'lucide-react';
+import { useEffect } from 'react';
+import type { Link } from '@/lib/config';
 
-interface KeybindHelpProps {
+type KeybindHelpProps = {
   links: Link[];
   keybinds: {
     help: string;
@@ -18,7 +18,7 @@ interface KeybindHelpProps {
     selection: string;
     accent: string;
   };
-}
+};
 
 export function KeybindHelp({
   links,
@@ -30,30 +30,30 @@ export function KeybindHelp({
     const handleKeyDown = (e: KeyboardEvent) => {
       e.stopPropagation();
 
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         e.preventDefault();
         onClose();
       }
     };
 
     // Use capture phase to ensure our handler runs before the main page handler
-    window.addEventListener("keydown", handleKeyDown, { capture: true });
+    window.addEventListener('keydown', handleKeyDown, { capture: true });
     return () =>
-      window.removeEventListener("keydown", handleKeyDown, { capture: true });
+      window.removeEventListener('keydown', handleKeyDown, { capture: true });
   }, [onClose]);
 
   const getIconForLink = (id: string) => {
     switch (id) {
-      case "github":
-        return <Github className="w-4 h-4" />;
-      case "twitter":
-        return <Twitter className="w-4 h-4" />;
-      case "linkedin":
-        return <Linkedin className="w-4 h-4" />;
-      case "youtube":
-        return <Youtube className="w-4 h-4" />;
-      case "email":
-        return <Mail className="w-4 h-4" />;
+      case 'github':
+        return <Github className="h-4 w-4" />;
+      case 'twitter':
+        return <Twitter className="h-4 w-4" />;
+      case 'linkedin':
+        return <Linkedin className="h-4 w-4" />;
+      case 'youtube':
+        return <Youtube className="h-4 w-4" />;
+      case 'email':
+        return <Mail className="h-4 w-4" />;
       default:
         return null;
     }
@@ -61,21 +61,21 @@ export function KeybindHelp({
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
       onClick={onClose}
       onKeyDown={(e) => e.stopPropagation()}
     >
       <div
-        className="w-full max-w-md p-6 rounded-md shadow-lg"
+        className="w-full max-w-md rounded-md p-6 shadow-lg"
+        onClick={(e) => e.stopPropagation()}
         style={{
           backgroundColor: theme.background,
           color: theme.foreground,
           border: `1px solid ${theme.accent}`,
         }}
-        onClick={(e) => e.stopPropagation()}
       >
         <h2
-          className="text-xl font-bold mb-4 pb-2"
+          className="mb-4 pb-2 font-bold text-xl"
           style={{ borderBottom: `1px solid ${theme.selection}` }}
         >
           Keyboard Shortcuts
@@ -83,16 +83,16 @@ export function KeybindHelp({
 
         <div className="grid gap-4">
           <div>
-            <h3 className="font-bold mb-2">Navigation</h3>
+            <h3 className="mb-2 font-bold">Navigation</h3>
             <ul className="grid gap-2">
               {links.map((link) => (
-                <li key={link.id} className="flex justify-between items-center">
+                <li className="flex items-center justify-between" key={link.id}>
                   <div className="flex items-center gap-2">
                     {getIconForLink(link.id)}
                     <span>{link.title}</span>
                   </div>
                   <kbd
-                    className="px-2 py-1 text-xs rounded"
+                    className="rounded px-2 py-1 text-xs"
                     style={{
                       backgroundColor: theme.selection,
                       color: theme.foreground,
@@ -106,12 +106,12 @@ export function KeybindHelp({
           </div>
 
           <div>
-            <h3 className="font-bold mb-2">General</h3>
+            <h3 className="mb-2 font-bold">General</h3>
             <ul className="grid gap-2">
               <li className="flex justify-between">
                 <span>Toggle Help</span>
                 <kbd
-                  className="px-2 py-1 text-xs rounded"
+                  className="rounded px-2 py-1 text-xs"
                   style={{
                     backgroundColor: theme.selection,
                     color: theme.foreground,
@@ -123,7 +123,7 @@ export function KeybindHelp({
               <li className="flex justify-between">
                 <span>Toggle Theme</span>
                 <kbd
-                  className="px-2 py-1 text-xs rounded"
+                  className="rounded px-2 py-1 text-xs"
                   style={{
                     backgroundColor: theme.selection,
                     color: theme.foreground,
@@ -135,7 +135,7 @@ export function KeybindHelp({
               <li className="flex justify-between">
                 <span>Close/Cancel</span>
                 <kbd
-                  className="px-2 py-1 text-xs rounded"
+                  className="rounded px-2 py-1 text-xs"
                   style={{
                     backgroundColor: theme.selection,
                     color: theme.foreground,
@@ -150,17 +150,18 @@ export function KeybindHelp({
 
         <div className="mt-6 flex gap-2">
           <button
-            className="flex-1 py-2 rounded-md font-bold"
+            className="flex-1 rounded-md py-2 font-bold"
+            onClick={onClose}
             style={{
               backgroundColor: theme.accent,
               color: theme.background,
             }}
-            onClick={onClose}
+            type="button"
           >
             Close
           </button>
           <div
-            className="px-3 py-2 rounded-md text-xs flex items-center opacity-70"
+            className="flex items-center rounded-md px-3 py-2 text-xs opacity-70"
             style={{ backgroundColor: theme.selection }}
           >
             Press Escape to close

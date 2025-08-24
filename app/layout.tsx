@@ -2,7 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { GeistMono } from "geist/font/mono";
-import { PostHogProvider } from "@/components/PostHogProvider";
+import { PostHogProvider } from "@/components/posthog-provider";
 
 import "@/app/globals.css";
 import config from "@/lib/config";

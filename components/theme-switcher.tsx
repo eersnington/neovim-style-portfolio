@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import type { Theme } from "@/lib/themes";
+import { useEffect, useState } from 'react';
+import type { Theme } from '@/lib/themes';
 
-interface ThemeSwitcherProps {
+type ThemeSwitcherProps = {
   themes: Theme[];
   currentThemeIndex: number;
   onSelectTheme: (index: number) => void;
@@ -14,7 +14,7 @@ interface ThemeSwitcherProps {
     selection: string;
     accent: string;
   };
-}
+};
 
 export function ThemeSwitcher({
   themes,
@@ -31,55 +31,55 @@ export function ThemeSwitcher({
 
       // Prevent default browser behavior
       if (
-        ["ArrowDown", "ArrowUp", "j", "k", "Enter", "Escape"].includes(e.key)
+        ['ArrowDown', 'ArrowUp', 'j', 'k', 'Enter', 'Escape'].includes(e.key)
       ) {
         e.preventDefault();
       }
 
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         onClose();
         return;
       }
 
-      if (e.key === "ArrowDown" || e.key === "j") {
+      if (e.key === 'ArrowDown' || e.key === 'j') {
         setFocusedIndex((prev) => Math.min(prev + 1, themes.length - 1));
         return;
       }
 
-      if (e.key === "ArrowUp" || e.key === "k") {
+      if (e.key === 'ArrowUp' || e.key === 'k') {
         setFocusedIndex((prev) => Math.max(prev - 1, 0));
         return;
       }
 
-      if (e.key === "Enter") {
+      if (e.key === 'Enter') {
         onSelectTheme(focusedIndex);
         return;
       }
     };
 
     // Use capture phase to ensure our handler runs before the main page handler
-    window.addEventListener("keydown", handleKeyDown, { capture: true });
+    window.addEventListener('keydown', handleKeyDown, { capture: true });
     return () =>
-      window.removeEventListener("keydown", handleKeyDown, { capture: true });
+      window.removeEventListener('keydown', handleKeyDown, { capture: true });
   }, [onClose, onSelectTheme, focusedIndex, themes.length]);
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
       onClick={onClose}
       onKeyDown={(e) => e.stopPropagation()}
     >
       <div
-        className="w-full max-w-md p-6 rounded-md shadow-lg"
+        className="w-full max-w-md rounded-md p-6 shadow-lg"
+        onClick={(e) => e.stopPropagation()}
         style={{
           backgroundColor: theme.background,
           color: theme.foreground,
           border: `1px solid ${theme.accent}`,
         }}
-        onClick={(e) => e.stopPropagation()}
       >
         <h2
-          className="text-xl font-bold mb-4 pb-2"
+          className="mb-4 pb-2 font-bold text-xl"
           style={{ borderBottom: `1px solid ${theme.selection}` }}
         >
           Theme Selector
@@ -88,34 +88,35 @@ export function ThemeSwitcher({
         <div className="grid gap-4">
           {themes.map((t, index) => (
             <button
+              className="flex items-center justify-between rounded-md p-3 transition-colors"
               key={t.name}
-              className="flex items-center justify-between p-3 rounded-md transition-colors"
-              style={{
-                backgroundColor:
-                  index === focusedIndex ? theme.selection : "transparent",
-                borderLeft: `2px solid ${
-                  index === currentThemeIndex ? theme.accent : "transparent"
-                }`,
-                outline: "none", // Remove default focus outline
-              }}
               onClick={() => onSelectTheme(index)}
               onMouseEnter={() => setFocusedIndex(index)}
+              style={{
+                backgroundColor:
+                  index === focusedIndex ? theme.selection : 'transparent',
+                borderLeft: `2px solid ${
+                  index === currentThemeIndex ? theme.accent : 'transparent'
+                }`,
+                outline: 'none', // Remove default focus outline
+              }}
+              type="button"
             >
               <span className="font-medium">
-                {index === currentThemeIndex && "✓ "}
+                {index === currentThemeIndex && '✓ '}
                 {t.name}
               </span>
               <div className="flex gap-2">
                 <div
-                  className="w-4 h-4 rounded-full border border-gray-600"
+                  className="h-4 w-4 rounded-full border border-gray-600"
                   style={{ backgroundColor: t.colors.background }}
                 />
                 <div
-                  className="w-4 h-4 rounded-full border border-gray-600"
+                  className="h-4 w-4 rounded-full border border-gray-600"
                   style={{ backgroundColor: t.colors.accent }}
                 />
                 <div
-                  className="w-4 h-4 rounded-full border border-gray-600"
+                  className="h-4 w-4 rounded-full border border-gray-600"
                   style={{ backgroundColor: t.colors.foreground }}
                 />
               </div>
@@ -125,17 +126,18 @@ export function ThemeSwitcher({
 
         <div className="mt-6 flex gap-2">
           <button
-            className="flex-1 py-2 rounded-md font-bold"
+            className="flex-1 rounded-md py-2 font-bold"
+            onClick={onClose}
             style={{
               backgroundColor: theme.accent,
               color: theme.background,
             }}
-            onClick={onClose}
+            type="button"
           >
             Close
           </button>
           <div
-            className="px-3 py-2 rounded-md text-xs flex items-center opacity-70"
+            className="flex items-center rounded-md px-3 py-2 text-xs opacity-70"
             style={{ backgroundColor: theme.selection }}
           >
             Use ↑↓ and Enter to select

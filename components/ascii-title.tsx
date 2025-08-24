@@ -1,18 +1,22 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import figlet from "figlet";
-// @ts-ignore - Figlet font doesn't have type definitions
-import ANSI from "figlet/importable-fonts/ANSI Shadow.js";
+import figlet from 'figlet';
+// @ts-expect-error - Figlet font doesn't have type definitions
+import ANSI from 'figlet/importable-fonts/ANSI Shadow.js';
+import { useEffect, useState } from 'react';
 
-interface AsciiTitleProps {
+type AsciiTitleProps = {
   title: string;
   color: string;
-}
+};
+
+const SHORT_TITLE_LENGTH = 5;
+const LOADING_DELAY = 400;
+const TRANSITION_DELAY = 300;
 
 export function AsciiTitle({ title, color }: AsciiTitleProps) {
-  const [asciiArt, setAsciiArt] = useState("");
-  const [shortAsciiArt, setShortAsciiArt] = useState("");
+  const [asciiArt, setAsciiArt] = useState('');
+  const [shortAsciiArt, setShortAsciiArt] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -20,16 +24,16 @@ export function AsciiTitle({ title, color }: AsciiTitleProps) {
     const generateAscii = async () => {
       try {
         // Load the ANSI Shadow font
-        figlet.parseFont("ANSI Shadow", ANSI);
+        figlet.parseFont('ANSI Shadow', ANSI);
 
         // Generate full ASCII art
         const fullArt = await new Promise<string>((resolve, reject) => {
           figlet.text(
             title,
             {
-              font: "ANSI Shadow",
-              horizontalLayout: "default",
-              verticalLayout: "default",
+              font: 'ANSI Shadow',
+              horizontalLayout: 'default',
+              verticalLayout: 'default',
             },
             (err, result) => {
               if (err) {
@@ -37,7 +41,7 @@ export function AsciiTitle({ title, color }: AsciiTitleProps) {
                 return;
               }
               if (!result) {
-                reject(new Error("No result generated"));
+                reject(new Error('No result generated'));
                 return;
               }
               resolve(result);
@@ -53,14 +57,15 @@ export function AsciiTitle({ title, color }: AsciiTitleProps) {
 
         // Generate shorter version for mobile/smaller screens
         const shortTitle =
-          title.split(" ")[0] || title.substring(0, Math.min(title.length, 5));
+          title.split(' ')[0] ||
+          title.substring(0, Math.min(title.length, SHORT_TITLE_LENGTH));
         const shortArt = await new Promise<string>((resolve, reject) => {
           figlet.text(
             shortTitle,
             {
-              font: "ANSI Shadow",
-              horizontalLayout: "default",
-              verticalLayout: "default",
+              font: 'ANSI Shadow',
+              horizontalLayout: 'default',
+              verticalLayout: 'default',
             },
             (err, result) => {
               if (err) {
@@ -68,7 +73,7 @@ export function AsciiTitle({ title, color }: AsciiTitleProps) {
                 return;
               }
               if (!result) {
-                reject(new Error("No result generated"));
+                reject(new Error('No result generated'));
                 return;
               }
               resolve(result);
@@ -78,16 +83,17 @@ export function AsciiTitle({ title, color }: AsciiTitleProps) {
         setShortAsciiArt(shortArt);
 
         // Small delay before removing loading state
-        await new Promise((resolve) => setTimeout(resolve, 400));
+        await new Promise((resolve) => setTimeout(resolve, LOADING_DELAY));
         setIsLoading(false);
 
         // Small delay before ending transition
-        await new Promise((resolve) => setTimeout(resolve, 300));
+        await new Promise((resolve) => setTimeout(resolve, TRANSITION_DELAY));
         setIsTransitioning(false);
       } catch (error) {
-        console.error("Error generating ASCII art:", error);
+        // biome-ignore lint/suspicious/noConsole: this is useful
+        console.error('Error generating ASCII art:', error);
         setAsciiArt(title);
-        setShortAsciiArt(title.split(" ")[0] || title);
+        setShortAsciiArt(title.split(' ')[0] || title);
         setIsLoading(false);
       }
     };
@@ -108,12 +114,12 @@ export function AsciiTitle({ title, color }: AsciiTitleProps) {
 `.trim();
 
   return (
-    <div className="relative text-center w-full max-w-full overflow-hidden h-[200px]">
+    <div className="relative h-[200px] w-full max-w-full overflow-hidden text-center">
       <div className="absolute inset-0 overflow-x-auto">
         {/* Loading state */}
         <pre
-          className={`font-mono text-xs sm:text-sm md:text-base inline-block transition-opacity duration-300 ${
-            isLoading ? "opacity-100" : "opacity-0"
+          className={`inline-block font-mono text-xs transition-opacity duration-300 sm:text-sm md:text-base ${
+            isLoading ? 'opacity-100' : 'opacity-0'
           }`}
           style={{ color }}
         >
@@ -123,8 +129,8 @@ export function AsciiTitle({ title, color }: AsciiTitleProps) {
       <div className="absolute inset-0 overflow-x-auto">
         {/* Final content */}
         <pre
-          className={`font-mono text-xs sm:text-sm md:text-base inline-block transition-opacity duration-300 ${
-            !isLoading && !isTransitioning ? "opacity-100" : "opacity-0"
+          className={`inline-block font-mono text-xs transition-opacity duration-300 sm:text-sm md:text-base ${
+            isLoading || isTransitioning ? 'opacity-0' : 'opacity-100'
           }`}
           style={{ color }}
         >
