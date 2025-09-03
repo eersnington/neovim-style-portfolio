@@ -81,6 +81,7 @@ export type NavigationLinksProps = {
   readonly selectedIndex: number;
   readonly theme: Theme['colors'];
   readonly onLinkActivate: (link: Link) => void;
+  readonly onSelectIndex?: (index: number) => void; // optional callback to sync selection from mouse hover
 };
 
 export type VimStatusDisplayProps = {
@@ -112,6 +113,7 @@ export type UseKeyboardNavigationReturn = {
   readonly selectedIndex: number;
   readonly keyBuffer: string;
   readonly keysPressed: readonly string[];
+  readonly setSelectedIndex: (index: number) => void;
 };
 
 export type UseThemeManagerProps = {

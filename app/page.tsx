@@ -37,7 +37,7 @@ export default function Home() {
     }
   }, []);
 
-  const { selectedIndex, keyBuffer } = useKeyboardNavigation({
+  const { selectedIndex, keyBuffer, setSelectedIndex } = useKeyboardNavigation({
     links: config.links,
     onLinkActivate: handleLinkActivate,
     onToggleHelp: toggleHelp,
@@ -98,6 +98,7 @@ export default function Home() {
           <NavigationLinks
             links={config.links}
             onLinkActivate={handleLinkActivate}
+            onSelectIndex={setSelectedIndex}
             selectedIndex={selectedIndex}
             theme={theme}
           />

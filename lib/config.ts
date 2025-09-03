@@ -39,8 +39,8 @@ const config: Config = {
   ],
 
   keybinds: {
-    help: '?', // Will be detected with Shift key in the handler
-    toggleTheme: 'T', // Capital T represents Shift+t
+    help: '?', // will be detected with Shift key in the handler
+    toggleTheme: 'T', // capital T represents Shift+t
     escape: 'Escape',
   },
 };

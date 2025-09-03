@@ -175,5 +175,6 @@ export const useKeyboardNavigation = ({
     selectedIndex,
     keyBuffer,
     keysPressed,
+    setSelectedIndex,
   };
 };

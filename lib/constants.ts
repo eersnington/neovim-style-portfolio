@@ -14,24 +14,12 @@ export const LAYOUT = {
   STATUS_LINE_HEIGHT: 32, // 8 * 4 = 32px (h-8 in Tailwind)
 } as const;
 
-export const UI = {
-  MODAL_Z_INDEX: 50,
-  TRANSITION_DURATION: 200,
-  LOADING_DELAY: 400,
-  TRANSITION_DELAY: 300,
-} as const;
-
 export const DEFAULTS = {
   MODE: 'NORMAL',
   FILE: '~/index.html',
   FILETYPE: 'html',
   LINE: 1,
   COLUMN: 1,
-} as const;
-
-export const ASCII_TITLE = {
-  SHORT_TITLE_LENGTH: 5,
-  FONT: 'ANSI Shadow',
 } as const;
 
 export const KEYBIND_PATTERNS = {
