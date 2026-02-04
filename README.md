@@ -1,21 +1,20 @@
 # Neovim-Style Portfolio
 
-A sleek, Neovim-inspired personal portfolio website featuring vim-like keybindings, interactive UI, and smooth transitions. Built with Next.js 15 and styled with Tailwind CSS.
+A sleek, Neovim-inspired personal portfolio website featuring vim-like keybindings, interactive UI, and smooth transitions. Built with SvelteKit and styled with Tailwind CSS.
 
-![Portfolio Preview](app/opengraph-image.png)
+![Portfolio Preview](src/lib/assets/opengraph-image.png)
 
 ## Demo : [https://www.eers.dev](www.eers.dev)
 
-
 ## Features
 
-### 🎨 Vim-Inspired Interface
+### Vim-Inspired Interface
 - Vim-style navigation with `j/k` or Arrow keys
 - Status line showing current mode and position
 - Line numbers and empty line indicators (~)
 - Smooth transitions between states
 
-### ⌨️ Keyboard Navigation
+### Keyboard Navigation
 - Navigate links using vim-style keybindings
 - Quick access to social media profiles:
   - GitHub: `ggh`
@@ -24,7 +23,7 @@ A sleek, Neovim-inspired personal portfolio website featuring vim-like keybindin
   - YouTube: `gyt`
   - Contact: `gcm`
 
-### 🎭 Theme System
+### Theme System
 - Multiple built-in themes:
   - Default (Dark)
   - Catppuccin Mocha
@@ -33,27 +32,13 @@ A sleek, Neovim-inspired personal portfolio website featuring vim-like keybindin
 - Theme switching with `Shift + T`
 - Smooth theme transitions
 
-### 📱 Responsive Design
-- Mobile-first approach
-- Adaptive ASCII art for different screen sizes
-- Smooth animations and transitions
-- Accessible on all devices
-
-## Tech Stack
-
-- **Framework:** Next.js 15
-- **Styling:** Tailwind CSS
-- **UI Components:** Custom components with Vim-like aesthetics
-- **ASCII Art:** Figlet with ANSI Shadow font
-- **Animations:** CSS transitions
-- **Icons:** Lucide React
 
 ## Getting Started
 
 1. Clone the repository:
 ```bash
 git clone https://github.com/eersnington/neovim-style-portfolio.git
-cd neovim-style-portfolio
+cd neovim-style-portfolio/myapp
 ```
 
 2. Install dependencies:
@@ -66,22 +51,15 @@ pnpm install
 pnpm dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. Open [http://localhost:5173](http://localhost:5173) in your browser
 
-## OpenGraph Image
+## Building for Production
 
-The project includes a custom OpenGraph image (`app/opengraph-image.png`) that showcases the portfolio's Neovim-inspired interface. This image is used when sharing the site on social media platforms.
+```bash
+pnpm build
+```
 
-- **Format:** PNG
-- **Location:** `app/opengraph-image.png`
-- **Twitter Card:** Also available as `app/twitter-image.png`
-- **Favicon:** Available as `app/icon.png`
-
-The OpenGraph image features:
-- Dark theme aesthetics
-- Vim-style interface elements
-- ASCII art title
-- Clean, minimalist design
+The static site will be generated in the `build/` directory.
 
 ## Keybindings
 
@@ -102,25 +80,40 @@ The OpenGraph image features:
 
 ### Project Structure
 ```
-├── app/
-│   ├── layout.tsx      # Root layout with theme provider
-│   ├── page.tsx        # Main page component
-│   └── globals.css     # Global styles
-├── components/
-│   ├── ascii-title.tsx # ASCII art title component
-│   ├── keybind-help.tsx# Help modal component
-│   └── status-line.tsx # Vim-style status line
-└── lib/
-    ├── config.ts       # Site configuration
-    ├── themes.ts       # Theme definitions
-    └── utils.ts        # Utility functions
+myapp/
+├── src/
+│   ├── routes/
+│   │   ├── +layout.svelte    # Root layout with fonts
+│   │   ├── +page.svelte      # Main page component
+│   │   └── layout.css        # Tailwind CSS import
+│   ├── lib/
+│   │   ├── components/       # Svelte components
+│   │   │   ├── AsciiTitle.svelte
+│   │   │   ├── KeybindHelp.svelte
+│   │   │   ├── NavigationLinks.svelte
+│   │   │   ├── StatusLine.svelte
+│   │   │   ├── ThemeSwitcher.svelte
+│   │   │   └── ...
+│   │   ├── config.ts         # Site configuration
+│   │   ├── themes.ts         # Theme definitions
+│   │   ├── types.ts          # TypeScript types
+│   │   ├── constants.ts      # App constants
+│   │   └── utils/            # Utility functions
+│   │       ├── index.ts
+│   │       └── keyboard-utils.ts
+│   └── app.html              # HTML template
+├── static/                   # Static assets
+├── svelte.config.js          # SvelteKit config
+├── vite.config.ts            # Vite config
+└── package.json
 ```
 
 ### Customization
 
-1. Update site configuration in `lib/config.ts`:
+1. Update site configuration in `src/lib/config.ts`:
 ```typescript
 const config = {
+  pageTitle: "Your Name | @handle",
   title: "Your Name",
   subtitle: "Your Title",
   links: [
@@ -129,8 +122,8 @@ const config = {
 }
 ```
 
-2. Add/modify themes in `lib/themes.ts`
-3. Customize ASCII art loading states in `components/ascii-title.tsx`
+2. Add/modify themes in `src/lib/themes.ts`
+3. Customize ASCII art in `src/lib/components/AsciiTitle.svelte`
 
 ## License
 
@@ -140,7 +133,7 @@ MIT License - feel free to use this for your own portfolio!
 
 - Inspired by Neovim's interface
 - ASCII art powered by Figlet
-- Icons by Lucide React
+- Icons by Lucide Svelte
 
 ## Contributing
 
