@@ -13,20 +13,23 @@ export type Link = {
 };
 
 export type Config = {
-  pageTitle: string;
-  // Homepage title and subtitle
-  title: string;
-  subtitle: string;
+	pageTitle: string;
+	// Homepage title and subtitle
+	title: string;
+	subtitle: string;
 
-  // Navigation links
-  links: Link[];
+	// Site URL for canonical links and SEO
+	siteUrl: string;
 
-  // Keyboard shortcuts
-  keybinds: {
-    help: string;
-    toggleTheme: string;
-    escape: string;
-  };
+	// Navigation links
+	links: Link[];
+
+	// Keyboard shortcuts
+	keybinds: {
+		help: string;
+		toggleTheme: string;
+		escape: string;
+	};
 };
 
 export type Position = {

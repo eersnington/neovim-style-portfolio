@@ -4,6 +4,7 @@ const config: Config = {
   pageTitle: 'Sree N | @eersnington',
   title: 'Sree',
   subtitle: 'software engineer | i\'m into making the web better and game dev',
+  siteUrl: 'https://www.eers.dev',
 
   links: [
     {

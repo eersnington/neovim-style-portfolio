@@ -206,10 +206,7 @@ const lineCount = $derived(
 );
 </script>
 
-<svelte:head>
-	<title>{config.pageTitle}</title>
-	<meta name="description" content="A Neovim-inspired personal homepage with keybinds" />
-</svelte:head>
+
 
 <div
 	class="relative flex min-h-screen flex-col font-mono text-sm"
