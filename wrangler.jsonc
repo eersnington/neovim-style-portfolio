@@ -6,5 +6,18 @@
 	"assets": {
 		"binding": "ASSETS",
 		"directory": ".svelte-kit/cloudflare"
+	},
+	"routes": [
+		{
+			"pattern": "www.eers.dev",
+			"custom_domain": true
+		},
+		{
+			"pattern": "eers.dev",
+			"custom_domain": true
+		}
+	],
+	"observability": {
+		"enabled": true
 	}
 }
